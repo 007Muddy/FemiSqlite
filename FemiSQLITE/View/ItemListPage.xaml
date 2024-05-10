@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:FemiSQLITE.Models"
+             xmlns:searchHandlers="clr-namespace:FemiSQLITE.SearchHandlers"
+             xmlns:viewModels="clr-namespace:FemiSQLITE.ViewModels"
+             x:DataType="viewModels:ItemListPageViewModel"
+             x:Class="FemiSQLITE.View.ItemListPage"
+BackgroundColor="#40e0d0"
+             
+             Title="ItemListPage">
+
+    <Shell.SearchHandler>
+        <searchHandlers:ItemSearchHandler 
+            BackgroundColor="#f5f096"
+            Placeholder="Search Name"
+            ShowsResults="True"
+            QueryIcon="search"
+            ClearIcon="clear"
+            NavigationRoute="AddUpdateItemDetail"
+            Items="{x:Static viewModels:ItemListPageViewModel.ItemsListForSearch}">
+            <searchHandlers:ItemSearchHandler.ItemTemplate>
+                <DataTemplate x:DataType="models:ItemModel">
+                    <Grid Margin="5" RowDefinitions="Auto" ColumnDefinitions="40,Auto">
+                        <Image Grid.Row="0" Grid.Column="0" Source="user" HeightRequest="35" WidthRequest="35" />
+                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding Name}" FontSize="18" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                    </Grid>
+                </DataTemplate>
+            </searchHandlers:ItemSearchHandler.ItemTemplate>
+        </searchHandlers:ItemSearchHandler>
+    </Shell.SearchHandler>
+    <ScrollView>
+        <!-- Added ScrollView to allow vertical scrolling -->
+        <StackLayout Margin="10">
+            <Label Text="Item List" FontSize="28"/>
+            <Button Text="Add Item" Command="{Binding AddUpdateItemCommand}" HorizontalOptions="EndAndExpand" />
+            <CollectionView ItemsSource="{Binding Items}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:ItemModel">
+                        <SwipeView>
+                            <SwipeView.LeftItems>
+                                <SwipeItems>
+                                    <SwipeItem Text="Delete" IconImageSource="delete" BackgroundColor="Red"  
+                                               CommandParameter="{Binding .}"
+                                               Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewModels:ItemListPageViewModel}},Path=DeleteItemCommand}" />
+                                </SwipeItems>
+                            </SwipeView.LeftItems>
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItem Text="Edit" IconImageSource="Edit" BackgroundColor="Green"  
+                                               CommandParameter="{Binding .}"
+                                               Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewModels:ItemListPageViewModel}},Path=EditItemCommand}" />
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+                            <Frame Margin="10" Padding="10" >
+                                <VerticalStackLayout >
+                                    <HorizontalStackLayout Spacing="10">
+                                        <Image Source="{Binding ImageUrl}" HeightRequest="250" WidthRequest="350"/>
+                                    </HorizontalStackLayout>
+                                    <Label Text="{Binding Name}" FontSize="18" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+                                    <Label Text="{Binding Price, StringFormat='{0} DKK'}" FontSize="18" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+                                    <Label Text="{Binding Description}" HorizontalTextAlignment="Center"/>
+                                </VerticalStackLayout>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewModels:ItemListPageViewModel}},Path=DisplayActionCommand}"
+                                                          CommandParameter="{Binding .}" />
+                                </Frame.GestureRecognizers>
+                            </Frame>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

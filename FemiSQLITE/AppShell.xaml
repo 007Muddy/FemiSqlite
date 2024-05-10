@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="FemiSQLITE.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:FemiSQLITE"
+    xmlns:views="clr-namespace:FemiSQLITE.View"
+    Shell.FlyoutBehavior="Disabled" 
+    BackgroundColor="Cyan"
+    Title="FemiSQLITE">
+
+    <!-- Tabbed navigation setup -->
+    <TabBar>
+        <Tab Title="Home" Icon="Resources/Images/home_1946436.png">
+            <ShellContent 
+                Title="Home"  
+                ContentTemplate="{DataTemplate views:HomeFeminhilo}" 
+                Route="home" />
+        </Tab>
+
+        <Tab Title="Profile" Icon="Resources/Images/user_456212.png">
+            <ShellContent 
+                Title="Profile" 
+                ContentTemplate="{DataTemplate views:Profile}" 
+                Route="profile" />
+        </Tab>
+
+        <Tab Title="Cart" Icon="Resources/Images/cart1.png">
+            <ShellContent 
+                Title="Cart"  
+                ContentTemplate="{DataTemplate views:Cart}" 
+                Route="cart" />
+        </Tab>
+
+        <Tab Title="Item List" Icon="Resources/Images/list.png">
+            <ShellContent 
+                Title="Item List"  
+                ContentTemplate="{DataTemplate views:ItemListPage}" 
+                Route="itemlist" />
+        </Tab>
+
+        <Tab Title="Add Item" Icon="Resources/Images/addition.png">
+            <ShellContent 
+                Title="Add Item"  
+                ContentTemplate="{DataTemplate views:AddUpdateItemDetail}" 
+                Route="additem" />
+        </Tab>
+    </TabBar>
+</Shell>
