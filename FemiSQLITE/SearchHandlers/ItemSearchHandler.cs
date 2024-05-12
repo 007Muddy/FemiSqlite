@@ -16,14 +16,20 @@ namespace FemiSQLITE.SearchHandlers
         {
             base.OnQueryChanged(oldValue, newValue);
 
-            if (string.IsNullOrWhiteSpace(newValue))
+
+            try
             {
-                ItemsSource = null;
+                if (string.IsNullOrWhiteSpace(newValue))
+                {
+                    ItemsSource = null;
+                }
+                else
+                {
+                    ItemsSource = Items.Where(item => item.Name.ToLower().Contains(newValue.ToLower())).ToList();
+                }
+
             }
-            else
-            {
-                ItemsSource = Items.Where(item => item.Name.ToLower().Contains(newValue.ToLower())).ToList();
-            }
+            catch (Exception ex) { }
         }
 
         protected override async void OnItemSelected(object item)

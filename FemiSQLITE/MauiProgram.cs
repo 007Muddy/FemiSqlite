@@ -22,6 +22,7 @@ namespace FemiSQLITE
             //viewmodel
             builder.Services.AddSingleton<ViewModels.ItemListPageViewModel>();
             builder.Services.AddTransient<ViewModels.AddUpdateItemDetailViewModel>();
+            builder.Services.AddTransient<ViewModels.HomeFeminiloViewModel>();
 
 
             //View 

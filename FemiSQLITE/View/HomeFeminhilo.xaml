@@ -2,40 +2,40 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:FemiSQLITE.Models"
-xmlns:viewModels="clr-namespace:FemiSQLITE.ViewModels"
-x:DataType="viewModels:ItemListPageViewModel"
-             
+             xmlns:viewModels="clr-namespace:FemiSQLITE.ViewModels"
              x:Class="FemiSQLITE.View.HomeFeminhilo"
+             x:Name="Home" 
+    x:DataType="viewModels:HomeFeminiloViewModel"
              Title="Home Feminhilo">
 
+    <ContentPage.BindingContext>
+        <viewModels:HomeFeminiloViewModel />
+    </ContentPage.BindingContext>
     <ScrollView>
         <StackLayout Margin="10">
-        <Label Text="Item List" FontSize="28"/>
-        <CollectionView ItemsSource="{Binding Items}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:ItemModel">
-                    <SwipeView>
-                  
-                        <Frame Margin="10" Padding="10" >
-                            <VerticalStackLayout >
-                                <HorizontalStackLayout Spacing="10">
+            <Label Text="Item List" FontSize="28"/>
+            <CollectionView ItemsSource="{Binding Items}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:ItemModel">
+                        <SwipeView>
+                            <Frame Margin="10" Padding="10">
+                                <VerticalStackLayout>
                                     <Image Source="{Binding ImageUrl}" HeightRequest="250" WidthRequest="350"/>
-                                </HorizontalStackLayout>
-                                <Label Text="{Binding Name}" FontSize="18" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
-                                <Label Text="{Binding Price, StringFormat='{0} DKK'}" FontSize="18" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
-                                <Label Text="{Binding Description}" HorizontalTextAlignment="Center"/>
-
-                                    <Button Text="Buy"  BackgroundColor="Green"   HeightRequest="40" WidthRequest="200"  Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewModels:ItemListPageViewModel}}, Path=AddToCartCommand}"
+                                    <Label Text="{Binding Name}" FontSize="18" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+                                    <Label Text="{Binding Price, StringFormat='{0} DKK'}" FontSize="18" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+                                    <Label Text="{Binding Description}" HorizontalTextAlignment="Center"/>
+                                    <Button Text="Buy" BackgroundColor="Green" HeightRequest="40" WidthRequest="200"
+        Command="{Binding Path=BindingContext.AddToCartCommand, Source={x:Reference Home}}"
         CommandParameter="{Binding .}"
         HorizontalOptions="Center"
         Margin="10"/>
+
                                 </VerticalStackLayout>
-                           
-                        </Frame>
-                    </SwipeView>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </StackLayout>
+                            </Frame>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
     </ScrollView>
 </ContentPage>
